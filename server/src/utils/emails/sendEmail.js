@@ -5,7 +5,7 @@ const sendEmail = async ({ to, subject, html }) => {
     
     return await sgMail.send({
         to,
-        from,
+        from: process.env.SENDGRID_FROM_EMAIL,
         subject,
         html,
     });

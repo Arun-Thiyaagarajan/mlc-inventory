@@ -17,6 +17,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "esm": "^3.2.25",
     "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
     "express-fileupload": "^1.5.1",
@@ -26,19 +27,19 @@
     "http-status-codes": "^2.3.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "module-alias": "^2.2.3",
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
     "validator": "^13.12.0",
     "xss-clean": "^0.1.4"
   },
-  "_moduleAliases": {
+  "aliases": {
+    "@root": "./src",
     "@controllers": "src/controllers",
     "@models": "src/models",
     "@routes": "src/routes",
     "@utils": "src/utils",
     "@middleware": "src/middleware",
-    "@errors": "src/errors",
+    ".": "src/errors",
     "@db": "src/db",
     "@enums": "src/enums",
     "@public": "src/public"
