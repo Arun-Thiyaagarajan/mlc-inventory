@@ -2,7 +2,8 @@ import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError, UnauthenticatedError } from "../errors/index.js";
 import { EUserRoles } from "../enums/Enums.js";
-import { sendVerificationEmail, generateCryptoString } from "../utils/index.js";
+import { sendVerificationEmail, generateCryptoString, createTokenUser, attachCookiesToResponse, sendResetPasswordEmail, createHash } from "../utils/index.js";
+import Token from "../models/Token.js";
 
 const register = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -65,7 +66,90 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Invalid password");
   }
 
-  res.status(StatusCodes.OK).json({ user });
+  if (!user.isVerified) {
+    throw new UnauthenticatedError("Please verify your email");
+  }
+
+  const tokenUser = createTokenUser(user);
+  // create refresh token
+  let refreshToken = "";
+  // check for existing token
+  const existingToken = await Token.findOne({ user: user._id });
+
+  if (existingToken) {
+    const { isValid } = existingToken;
+    if (!isValid) {
+      throw new UnauthenticatedError("Invalid Credentials");
+    }
+    refreshToken = existingToken.refreshToken;
+    await existingToken.save();
+  } else {
+    refreshToken = generateCryptoString();
+    const userAgent = req.headers["user-agent"];
+    const ip = req.ip;
+    const usertoken = {
+      refreshToken,
+      ip,
+      userAgent,
+      user: user._id,
+    };
+    await Token.create(usertoken);
+  }
+
+  attachCookiesToResponse({ res, user: tokenUser, refreshToken });
+
+  res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 
-export { register, login, verifyEmail };
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+  if (user) {
+    const passwordToken = generateCryptoString();
+    //send email
+    await sendResetPasswordEmail({
+      name: user.name,
+      email: user.email,
+      passwordToken: passwordToken,
+      origin: "http://localhost:5173",
+    });
+
+    const tenMinutes = 1000 * 60 * 10;
+    const passwordTokenExpiration = new Date(Date.now() + tenMinutes);
+    user.passwordToken = createHash(passwordToken);
+    user.passwordTokenExpiration = passwordTokenExpiration;
+    await user.save();
+  }
+
+  res.status(StatusCodes.OK).json({ msg: "Please check your email for the password reset link!" });
+};
+
+const resetPassword = async (req, res) => {
+  const { token, email, password } = req.body;
+  if (!token || !email || !password) {
+    throw new BadRequestError("Please provide all required values");
+  }
+  const user = await User.findOne({ email });
+  if (user) {
+    const currentTime = new Date();
+    if (user.passwordToken === createHash(token) && currentTime < user.passwordTokenExpiration) {
+      user.password = password;
+      user.passwordTokenExpiration = "";
+      user.passwordToken = "";
+      await user.save();
+    } else {
+      throw new UnauthenticatedError("Reset Password Link Expired");
+    }
+  }
+
+  res.status(StatusCodes.OK).json({ msg: `Password reseted successfully!` });
+};
+
+export {
+  register,
+  login,
+  verifyEmail,
+  forgotPassword,
+  resetPassword,
+};

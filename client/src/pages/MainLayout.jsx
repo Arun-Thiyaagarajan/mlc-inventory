@@ -1,6 +1,10 @@
+import { Outlet } from "react-router-dom";
+
 const MainLayout = () => {
   return (
-    <h1>MainLayout</h1>
+    <main className="h-dvh">
+      <Outlet />
+    </main>
   );
 }
 export default MainLayout;

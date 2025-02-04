@@ -1,17 +1,17 @@
-{
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@controllers/*": ["controllers/*"],
-      "@models/*": ["models/*"],
-      "@routes/*": ["routes/*"],
-      "@utils/*": ["utils/*"],
-      "@middleware/*": ["middleware/*"],
-      "@errors/*": ["errors/*"],
-      "@db/*": ["db/*"],
-      "@enums/*": ["enums/*"],
-      "@public/*": ["public/*"]
-    }
-  },
-  "include": ["src/**/*"]
-}
+// {
+//   "compilerOptions": {
+//     "baseUrl": "./src",
+//     "paths": {
+//       "@controllers/*": ["controllers/*"],
+//       "@models/*": ["models/*"],
+//       "@routes/*": ["routes/*"],
+//       "@utils/*": ["utils/*"],
+//       "@middleware/*": ["middleware/*"],
+//       "@errors/*": ["errors/*"],
+//       "@db/*": ["db/*"],
+//       "@enums/*": ["enums/*"],
+//       "@public/*": ["public/*"]
+//     }
+//   },
+//   "include": ["src/**/*"]
+// }

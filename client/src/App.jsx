@@ -1,9 +1,15 @@
+import { useAntMessage } from "./hooks";
 import router from "./routes/Router"
 import { RouterProvider } from 'react-router-dom';
 
 const App = () => {
+	const { contextHolder } = useAntMessage();
+
 	return (
-		<RouterProvider router={router} />
-  )
+		<>
+			{contextHolder}	{/* Ant Design message holder */}
+			<RouterProvider router={router} />
+		</>
+	)
 }
 export default App

@@ -1,16 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ForgotPassword, Login, MainLayout, Register, VerifiedAccount } from '../pages/index.js';
-//actions
+import { ForgotPassword, Landing, Login, MainLayout, Register, ResetPassword, VerifyAccount } from '../pages/index.js';
+// actions
 import { action as loginAction } from '../pages/auth/Login.jsx';
 import { action as registerAction } from '../pages/auth/Register.jsx';
+// errors
+import NotFoundPage from '../errors/NotFound.jsx';
+import { store } from '../store/store.js';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    errorElement: '',
+    errorElement: <NotFoundPage />,
     children: [
-      // Your routes here
+      {
+        index: true,
+        element: <Landing />,
+      }
     ],
   },
   {
@@ -20,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
-        action: loginAction(),
+        action: loginAction(store),
       },
       {
         path: 'register',
@@ -33,7 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'verify-account',
-        element: <VerifiedAccount />,
+        element: <VerifyAccount />,
+      },
+      {
+        path: 'reset-password',
+        element: <ResetPassword />,
       },
     ],
   },

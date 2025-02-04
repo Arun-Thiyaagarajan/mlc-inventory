@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  margin: 0;
+  height: 100dvh;
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask2019%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%26quot%3b%23SvgjsRadialGradient2020%26quot%3b)'%3e%3c/rect%3e%3cpath d='M1440 0L1184.02 0L1440 246.28z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M1184.02 0L1440 246.28L1440 316.13L795.29 0z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M795.29 0L1440 316.13L1440 337.5L316.53 0z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M316.53 0L1440 337.5L1440 464.5L112.37999999999997 0z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M0 560L52.19 560L0 328.03999999999996z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M0 328.03999999999996L52.19 560L487.46 560L0 307.06999999999994z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M0 307.07L487.46 560L647.53 560L0 178.22z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M0 178.22000000000003L647.53 560L850.9 560L0 112.45000000000003z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask2019'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cradialGradient cx='0%25' cy='100%25' r='1545.06' gradientUnits='userSpaceOnUse' id='SvgjsRadialGradient2020'%3e%3cstop stop-color='rgba(255%2c 255%2c 255%2c 1)' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(243%2c 243%2c 243%2c 1)' offset='0.53'%3e%3c/stop%3e%3c/radialGradient%3e%3c/defs%3e%3c/svg%3e"); */
+  background-size: cover;
+}
 
 @layer components {
   .center-screen {
-    @apply h-screen grid place-items-center;
+    @apply h-dvh grid place-items-center;
   }
   .center-screen-card {
-    @apply w-full sm:w-9/12 md:w-96 p-6 lg:p-0 bg-base-100 flex flex-col gap-y-3;
+    @apply w-full sm:w-9/12 md:w-96 p-6 lg:p-0 flex flex-col gap-y-3;
   }
 }

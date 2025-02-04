@@ -14,7 +14,7 @@ export const action = (store) => async ({ request }) => {
     return null;
   } catch (error) {
     console.log(error)
-    const errorMessage = error?.response?.data?.error?.message || 'please double check your credentials';
+    const errorMessage = error?.response?.data?.message || 'please double check your credentials';
     toast.error(errorMessage);
     return null;
   }
@@ -30,8 +30,9 @@ const Register = () => {
   }, []);
 
   return (
-    <>
-      <section className="center-screen">
+    <div className="min-h-screen flex flex-col">
+      {/* Main Content - Centered */}
+      <section className="flex-1 flex items-center justify-center">
         <Form method="POST" className="center-screen-card">
           <h4 className="text-center text-2xl font-semibold mb-6">Register</h4>
           
@@ -60,17 +61,19 @@ const Register = () => {
           <div className='mt-3'>
             <SubmitBtn text="register" statusText='registering...' />
           </div>
-          
-          <p className='mt-5 text-center'>
-            <span>Already a member?</span>
-            <Link to="/auth/login" className="btn btn-sm bg-base-100 hover:bg-base-100 ml-3">
-              Login
-              <ArrowRightIcon className='size-4' />
-            </Link>
-          </p>
         </Form>
       </section>
-    </>
+      {/* Footer - Stays at the Bottom */}
+      <footer className="w-full pb-12 text-center mt-auto">
+        <p>
+          <span>Already a member?</span>
+          <Link to="/auth/login" className="btn btn-sm bg-base-100 hover:bg-base-100 ml-3">
+            Login
+            <ArrowRightIcon className='size-4' />
+          </Link>
+        </p>
+      </footer>
+    </div>
   );
 }
 export default Register;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import VerifiedCheckbox from "../../components/inputs/VerifiedCheckbox";
-import { Link, useLocation } from "react-router-dom";
+import { VerifiedCheckbox } from "../../components";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { CustomFetch } from "../../utils";
 
@@ -8,11 +8,13 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
-const VerifiedAccount = () => {
+const VerifyAccount = () => {
   const [verified, setVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  
   const query = useQuery();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -25,8 +27,7 @@ const VerifiedAccount = () => {
         // Wait a bit before marking as verified
         setTimeout(() => setVerified(true), 100);
       } catch (error) {
-        setError(true);
-        console.log("Verification failed:", error);
+        navigate(-1);
       } finally {
         setIsLoading(false);
       }
@@ -68,4 +69,4 @@ const VerifiedAccount = () => {
   );
 };
 
-export default VerifiedAccount;
+export default VerifyAccount;

@@ -32,18 +32,6 @@
     "validator": "^13.12.0",
     "xss-clean": "^0.1.4"
   },
-  "aliases": {
-    "@root": "./src",
-    "@controllers": "src/controllers",
-    "@models": "src/models",
-    "@routes": "src/routes",
-    "@utils": "src/utils",
-    "@middleware": "src/middleware",
-    ".": "src/errors",
-    "@db": "src/db",
-    "@enums": "src/enums",
-    "@public": "src/public"
-  },
   "engines": {
     "node": "22.x"
   },
