@@ -18,6 +18,7 @@ const getThemeFromLocalStorage = () => {
 
 const initialState = {
   user: getUserFromLocalStorage(),
+  isAuthenticated: !!getUserFromLocalStorage(),
   theme: getThemeFromLocalStorage(),
 };
 
@@ -26,15 +27,15 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      const user = { ...action.payload.user, token: action.payload.jwt };
-      console.log(user)
-      // state.user = user;
-      // localStorage.setItem("user", JSON.stringify(user));
+      const user = action.payload.user;
+      state.user = user;
+      state.isAuthenticated = true;
+      localStorage.setItem("user", JSON.stringify(user));
     },
     logoutUser: (state) => {
       state.user = null;
+      state.isAuthenticated = false;
       localStorage.removeItem("user");
-      toast.success("Logged out successfully");
     },
     toggleTheme: (state) => {
       const { dracula, winter } = themes;

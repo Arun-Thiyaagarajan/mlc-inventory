@@ -6,4 +6,5 @@ export const CustomFetch = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });

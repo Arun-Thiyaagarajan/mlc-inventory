@@ -1,11 +1,23 @@
 // src/constants/navLinks.js
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
+import { Heart, Home, LogOut, Settings, Store, User } from "lucide-react";
 
 const navLinks = [
-  { id: uuidv4(), name: "Home", path: "/" },
-  { id: uuidv4(), name: "Inventory", path: "/inventory" },
-  // { id: uuidv4(), name: "Services", path: "/services" },
-  // { id: uuidv4(), name: "Contact", path: "/contact" },
+  { id: nanoid(), label: "Home", icon: Home, path: "/" },
+  { id: nanoid(), label: "Inventory", icon: Store, path: "inventory" },
+  // { id: nanoid(), label: "Categories", icon: Store, path: "categories" },
+  // { id: uuidv4(), label: "Services", path: "/services" },
+  // { id: uuidv4(), label: "Contact", path: "/contact" },
 ];
 
-export default navLinks;
+const profileLinks = [
+  { id: nanoid(), label: "Profile", icon: User, path: "my-profile" },
+  { id: nanoid(), label: "My Favourites", icon: Heart, path: "my-favourites" },
+  { id: nanoid(), label: "Settings", icon: Settings, path: "settings" },
+  { id: nanoid(), label: "Logout", icon: LogOut, path: "logout" },
+];
+
+export {
+  navLinks,
+  profileLinks,
+};

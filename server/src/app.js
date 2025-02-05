@@ -7,11 +7,11 @@ import helmet from "helmet";
 import xss from "xss-clean";
 import cors from "cors";
 import mongoSanitize from "express-mongo-sanitize";
-
 // database
 import connectDB from "./db/connect.js";
 // routes
 import authRouter from "./routes/authRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 // middlewares
 import { errorHandlerMiddleware, notFoundMiddleware } from "./middleware/index.js";
 
@@ -21,7 +21,12 @@ const port = process.env.PORT || 5001;
 
 // Others
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(xss());
 app.use(mongoSanitize());
 
@@ -33,6 +38,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 // All Routes
 const base_url = "/api/v1";
 app.use(`${base_url}/auth`, authRouter);
+app.use(`${base_url}/user`, userRouter);
 
 // Error Handler Middlewares
 app.use(notFoundMiddleware);

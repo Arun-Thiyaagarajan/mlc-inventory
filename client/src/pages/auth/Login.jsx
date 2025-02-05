@@ -1,6 +1,5 @@
 import { Form, Link, redirect } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { CustomFetch } from '../../utils';
 import { showMessage } from '../../hooks';
@@ -24,8 +23,6 @@ export const action = (store) => async ({ request }) => {
         emoji: AnimEmojis.NerdFace
       })
     );
-
-    console.log(response.data);
     return redirect('/');
   } catch (error) {
     const errorMessage = error?.response?.data?.error?.message || 'please double check your credentials';
@@ -44,7 +41,6 @@ export const action = (store) => async ({ request }) => {
 
 const Login = () => {
   const emailRef = useRef(null);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (emailRef.current) {

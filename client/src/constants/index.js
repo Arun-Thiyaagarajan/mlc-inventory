@@ -1,5 +1,6 @@
-import navLinks from "./navLinks.js";
+import { navLinks, profileLinks } from "./navLinks.js";
 
 export {
   navLinks,
+  profileLinks
 };
