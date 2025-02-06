@@ -7,13 +7,14 @@ import { EAntStatusMessage } from '../../enums';
 import { AnimEmojis } from '../../config/configData';
 import { AntMessageText, FormInput, SubmitBtn } from '../../components';
 import { loginUser } from '../../store/slices';
+import { authService } from '../../api';
 
 // This action will be called when the form is submitted
 export const action = (store) => async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
-    const response = await CustomFetch.post('/auth/login', data);
+    const response = await authService.login(data);
     store.dispatch(loginUser(response.data));
     
     showMessage(

@@ -1,21 +1,35 @@
 import { useEffect, useRef } from 'react';
-import { FormInput, SubmitBtn } from '../../components';
+import { AntMessageText, FormInput, SubmitBtn } from '../../components';
 import { Form, Link } from 'react-router-dom';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
-import { CustomFetch } from '../../utils/index';
+import { authService } from '../../api';
+import { showMessage } from '../../hooks';
+import { EAntStatusMessage } from '../../enums';
+import { AnimEmojis } from '../../config/configData';
 
-export const action = (store) => async ({ request }) => {
+export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
-    const response = await CustomFetch.post('/auth/register', data);
-    toast.success(response.data?.msg || 'Successfully registered! Check your mail for complete verification!');
+    const response = await authService.register(data);
+    showMessage(
+      EAntStatusMessage.SUCCESS,
+      AntMessageText({
+        statusText: 'Check your mail for complete verification!',
+        emoji: AnimEmojis.Rocket
+      })
+    );
     return null;
   } catch (error) {
-    console.log(error)
-    const errorMessage = error?.response?.data?.message || 'please double check your credentials';
-    toast.error(errorMessage);
+    const errorMessage = error?.response?.data?.message;
+    showMessage(
+      EAntStatusMessage.ERROR,
+      AntMessageText({
+        statusText: `Oops! ${errorMessage}`,
+        emoji: AnimEmojis.BigFrown
+      })
+    );
     return null;
   }
 };

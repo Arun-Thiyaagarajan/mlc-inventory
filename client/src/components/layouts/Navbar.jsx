@@ -9,6 +9,7 @@ import { showMessage } from "../../hooks";
 import { EAntStatusMessage } from "../../enums";
 import AntMessageText from "../others/StatusMessage";
 import { AnimEmojis } from "../../config/configData";
+import { authService } from "../../api";
 
 const Navbar = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -18,16 +19,35 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    navigate('/');
-    dispatch(logoutUser());
-    showMessage(
-      EAntStatusMessage.SUCCESS,
-      AntMessageText({
-        statusText: 'See You Soon Chief',
-        emoji: AnimEmojis.Wave
-      })
-    );
+  const handleLogout = async () => {
+    // showMessage(
+    //   EAntStatusMessage.LOADING,
+    //   AntMessageText({
+    //     statusText: 'Logging Out...',
+    //   })
+    // );
+    try {
+      await authService.logout();
+      navigate('/');
+      dispatch(logoutUser());
+      showMessage(
+        EAntStatusMessage.SUCCESS,
+        AntMessageText({
+          statusText: 'See You Soon Chief',
+          emoji: AnimEmojis.Wave
+        })
+      );
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message || 'Something went wrong';
+      showMessage(
+        EAntStatusMessage.ERROR,
+        AntMessageText({
+          statusText: errorMessage,
+          emoji: AnimEmojis.Eyes
+        })
+      );
+      
+    }
   };
 
   return (
@@ -35,7 +55,7 @@ const Navbar = () => {
       <div className="navbar border-b vertical-center">
         <div className="navbar-start">
           {/* TITLE */}
-          <NavLink to="/" className="hidden lg:flex btn btn-ghost text-xl items-center">
+          <NavLink to="/" className="hidden lg:flex btn btn-ghost text-xl font-bold items-center">
             {/* <PiFlowerLotusDuotone className="size-8" /> */}
             MLC
           </NavLink>
