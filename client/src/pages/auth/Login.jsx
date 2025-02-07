@@ -1,46 +1,20 @@
-import { Form, Link, redirect } from 'react-router-dom';
+// react imports
+import { Form, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+// external imports
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { CustomFetch } from '../../utils';
+// component imports
 import { showMessage } from '../../hooks';
 import { EAntStatusMessage } from '../../enums';
 import { AnimEmojis } from '../../config/configData';
 import { AntMessageText, FormInput, SubmitBtn } from '../../components';
 import { loginUser } from '../../store/slices';
-import { authService } from '../../api';
-
-// This action will be called when the form is submitted
-export const action = (store) => async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  try {
-    const response = await authService.login(data);
-    store.dispatch(loginUser(response.data));
-    
-    showMessage(
-      EAntStatusMessage.SUCCESS,
-      AntMessageText({
-        statusText: 'Welcome back, Chief',
-        emoji: AnimEmojis.NerdFace
-      })
-    );
-    return redirect('/');
-  } catch (error) {
-    const errorMessage = error?.response?.data?.error?.message || 'please double check your credentials';
-    
-    showMessage(
-      EAntStatusMessage.ERROR,
-      AntMessageText({
-        statusText: 'Oops! Invalid Credentials, Chief!',
-        emoji: AnimEmojis.BigFrown
-      })
-    );
-
-    return null;
-  }
-};
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const emailRef = useRef(null);
 
   useEffect(() => {
@@ -49,11 +23,40 @@ const Login = () => {
     }
   }, []);
 
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+      await dispatch(loginUser(data)); // Dispatch login action
+      showMessage(
+        EAntStatusMessage.SUCCESS,
+        AntMessageText({
+          statusText: 'Welcome back, Chief',
+          emoji: AnimEmojis.NerdFace,
+        })
+      );
+      navigate('/'); // Redirect to home page after successful login
+    } catch (error) {
+      const errorMessage = error?.response?.data?.error?.message || 'Please double-check your credentials';
+      showMessage(
+        EAntStatusMessage.ERROR,
+        AntMessageText({
+          statusText: 'Oops! Invalid Credentials, Chief!',
+          emoji: AnimEmojis.BigFrown,
+        })
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Main Content - Centered */}
       <section className="flex-1 flex items-center justify-center">
-        <Form method="POST" className="center-screen-card">
+        <Form method="POST" className="center-screen-card" onSubmit={handleSubmit}>
           <h4 className="text-center text-2xl font-semibold mb-6">Login</h4>
 
           <FormInput

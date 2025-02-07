@@ -1,35 +1,29 @@
+// react imports
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaBarsStaggered, FaRegBell } from 'react-icons/fa6';
+// external imports
 import { LogIn, User } from 'lucide-react';
+// component imports
 import { profileLinks } from "../../constants";
 import NavLinks from "../others/NavLinks";
-import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../store/slices";
 import { showMessage } from "../../hooks";
 import { EAntStatusMessage } from "../../enums";
 import AntMessageText from "../others/StatusMessage";
 import { AnimEmojis } from "../../config/configData";
-import { authService } from "../../api";
 
 const Navbar = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.user);
-
-  const fullName = user?.fullName || ""; 
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const fullName = user?.user.fullName || ""; 
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    // showMessage(
-    //   EAntStatusMessage.LOADING,
-    //   AntMessageText({
-    //     statusText: 'Logging Out...',
-    //   })
-    // );
     try {
-      await authService.logout();
-      navigate('/');
       dispatch(logoutUser());
+      navigate('/');
       showMessage(
         EAntStatusMessage.SUCCESS,
         AntMessageText({

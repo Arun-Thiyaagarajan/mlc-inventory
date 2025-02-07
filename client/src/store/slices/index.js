@@ -1,1 +1,7 @@
-export { loginUser, logoutUser, toggleTheme } from './userSlice' 
+import { loginUser, logoutUser, registerUser } from "./authSlice";
+
+export {
+  loginUser,
+  logoutUser,
+  registerUser,
+};
