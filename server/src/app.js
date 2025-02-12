@@ -12,6 +12,7 @@ import connectDB from "./db/connect.js";
 // routes
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import tilesRouter from "./routes/tilesRouter.js";
 // middlewares
 import { errorHandlerMiddleware, notFoundMiddleware } from "./middleware/index.js";
 
@@ -39,6 +40,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 const base_url = "/api/v1";
 app.use(`${base_url}/auth`, authRouter);
 app.use(`${base_url}/user`, userRouter);
+app.use(`${base_url}/products/tiles`, tilesRouter);
 
 // Error Handler Middlewares
 app.use(notFoundMiddleware);

@@ -29,27 +29,29 @@ const Register = () => {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    try {
-      await dispatch(registerUser(data));
-      showMessage(
-        EAntStatusMessage.SUCCESS,
-        AntMessageText({
-          statusText: 'Check your mail for complete verification!',
-          emoji: AnimEmojis.Rocket
-        })
-      );
-    } catch (error) {
-      const errorMessage = error?.response?.data?.message;
-      showMessage(
-        EAntStatusMessage.ERROR,
-        AntMessageText({
-          statusText: `Oops! ${errorMessage}`,
-          emoji: AnimEmojis.BigFrown
-        })
-      );
-      return null;
-    }
+    dispatch(registerUser(data))
+      .unwrap()
+      .then(() => {
+        showMessage(
+          EAntStatusMessage.SUCCESS,
+          AntMessageText({
+            statusText: 'Check your mail for complete verification!',
+            emoji: AnimEmojis.Rocket,
+          })
+        );
+      })
+      .catch((error) => {
+        const errorMessage = error?.response?.data?.message || 'Something went wrong';
+        showMessage(
+          EAntStatusMessage.ERROR,
+          AntMessageText({
+            statusText: `Oops! ${errorMessage}`,
+            emoji: AnimEmojis.BigFrown,
+          })
+        );
+      });
   };
+
 
   return (
     <div className="min-h-screen flex flex-col">

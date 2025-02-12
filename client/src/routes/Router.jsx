@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ForgotPassword, Inventory, Landing, Login, MainLayout, Register, ResetPassword, VerifyAccount } from '../pages';
+import { AddProducts, ForgotPassword, Inventory, Landing, Login, MainLayout, Register, ResetPassword, VerifyAccount } from '../pages';
 // loaders
 // import { loader as LandingLoader } from '../pages/home/Landing.jsx';
 // actions
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: 'inventory',
         element: <Inventory />,
+      },
+      {
+        path: 'add-products',
+        element: <AddProducts />,
       },
       {
         path: 'user',

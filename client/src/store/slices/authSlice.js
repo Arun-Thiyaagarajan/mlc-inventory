@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authService } from "../../api";
 
 // Async thunk for login
-export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk(
+  "auth/loginUser", async (credentials, { rejectWithValue }) => {
   try {
     const response = await authService.login(credentials);
     // Save user data to localStorage
@@ -14,7 +15,8 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, 
 });
 
 // Async thunk for register
-export const registerUser = createAsyncThunk("auth/registerUser", async (userData, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk(
+  "auth/registerUser", async (userData, { rejectWithValue }) => {
   try {
     const response = await authService.register(userData);
     // Save user data to localStorage
@@ -26,7 +28,8 @@ export const registerUser = createAsyncThunk("auth/registerUser", async (userDat
 });
 
 // Async thunk for logout
-export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser", async () => {
   await authService.logout();
   // Remove user data from localStorage upon logout
   localStorage.removeItem("user");

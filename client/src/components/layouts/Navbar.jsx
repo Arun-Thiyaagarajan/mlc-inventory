@@ -9,43 +9,50 @@ import { profileLinks } from "../../constants";
 import NavLinks from "../others/NavLinks";
 import { logoutUser } from "../../store/slices";
 import { showMessage } from "../../hooks";
-import { EAntStatusMessage } from "../../enums";
+import { EAntStatusMessage, EUserRoles } from "../../enums";
 import AntMessageText from "../others/StatusMessage";
 import { AnimEmojis } from "../../config/configData";
 
 const Navbar = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const fullName = user?.user.fullName || ""; 
+  
+  let fullName = "";
+  let role = "";
+  if (isAuthenticated) {
+    fullName = user.user.fullName; 
+    role = user.user.role;
+  }
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    try {
-      dispatch(logoutUser());
-      navigate('/');
-      showMessage(
-        EAntStatusMessage.SUCCESS,
-        AntMessageText({
-          statusText: 'See You Soon Chief',
-          emoji: AnimEmojis.Wave
-        })
-      );
-    } catch (error) {
-      const errorMessage = error?.response?.data?.message || 'Something went wrong';
-      showMessage(
-        EAntStatusMessage.ERROR,
-        AntMessageText({
-          statusText: errorMessage,
-          emoji: AnimEmojis.Eyes
-        })
-      );
-      
-    }
+    dispatch(logoutUser())
+      .unwrap()
+      .then(() => {
+        showMessage(
+          EAntStatusMessage.SUCCESS,
+          AntMessageText({
+            statusText: 'See You Soon, Chief',
+            emoji: AnimEmojis.Wave,
+          })
+        );
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorMessage = error?.response?.data?.message || 'Something went wrong';
+        showMessage(
+          EAntStatusMessage.ERROR,
+          AntMessageText({
+            statusText: errorMessage,
+            emoji: AnimEmojis.Eyes,
+          })
+        );
+      });
   };
 
   return (
-    <nav className="w-full">
+    <nav className="w-full sticky top-0 z-50 bg-base-100 shadow-md">
       <div className="navbar border-b vertical-center">
         <div className="navbar-start">
           {/* TITLE */}
@@ -69,12 +76,14 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end space-x-3">
-          <button className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <FaRegBell className="w-5 h-5" />
-              <span className="badge badge-xs badge-primary indicator-item"></span>
-            </div>
-          </button>
+          {isAuthenticated &&
+            <button className="btn btn-ghost btn-circle">
+              <div className="indicator">
+                <FaRegBell className="w-5 h-5" />
+                <span className="badge badge-xs badge-primary indicator-item"></span>
+              </div>
+            </button>
+          }
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-circle">
               <span className="text-xl">
@@ -89,6 +98,7 @@ const Navbar = () => {
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               {isAuthenticated ? (
                 profileLinks.map(({ id, label, icon: Icon, path }) => {
+                  if (role === EUserRoles.ADMIN && label === 'My Favourites') return;
                   if (label === 'Logout') {
                     return (
                       <li key={id}>

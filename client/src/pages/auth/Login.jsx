@@ -30,27 +30,30 @@ const Login = () => {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    try {
-      await dispatch(loginUser(data)); // Dispatch login action
-      showMessage(
-        EAntStatusMessage.SUCCESS,
-        AntMessageText({
-          statusText: 'Welcome back, Chief',
-          emoji: AnimEmojis.NerdFace,
-        })
-      );
-      navigate('/'); // Redirect to home page after successful login
-    } catch (error) {
-      const errorMessage = error?.response?.data?.error?.message || 'Please double-check your credentials';
-      showMessage(
-        EAntStatusMessage.ERROR,
-        AntMessageText({
-          statusText: 'Oops! Invalid Credentials, Chief!',
-          emoji: AnimEmojis.BigFrown,
-        })
-      );
-    }
+    dispatch(loginUser(data))
+      .unwrap()
+      .then(() => {
+        showMessage(
+          EAntStatusMessage.SUCCESS,
+          AntMessageText({
+            statusText: 'Welcome back, Chief',
+            emoji: AnimEmojis.NerdFace,
+          })
+        );
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorMessage = error?.response?.data?.error?.message || 'Please double-check your credentials';
+        showMessage(
+          EAntStatusMessage.ERROR,
+          AntMessageText({
+            statusText: 'Oops! Invalid Credentials, Chief!',
+            emoji: AnimEmojis.BigFrown,
+          })
+        );
+      });
   };
+
 
   return (
     <div className="min-h-screen flex flex-col">

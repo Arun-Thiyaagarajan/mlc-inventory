@@ -1,6 +1,11 @@
 export { default as FormInput } from "./form-inputs/FormInput";
+export { default as SelectInput } from "./form-inputs/SelectInput";
 export { default as SubmitBtn } from "./form-inputs/SubmitBtn";
-export { default as VerifiedCheckbox } from "./form-inputs/VerifiedCheckbox";
-export { default as AntMessageText } from "./others/StatusMessage";
 export { default as Navbar } from "./layouts/Navbar";
 export { default as Footer } from "./layouts/Footer";
+export { default as Search } from "./layouts/Search";
+export { default as VerifiedCheckbox } from "./others/VerifiedCheckbox";
+export { default as AntMessageText } from "./others/StatusMessage";
+export { default as SectionTitle } from "./others/SectionTitle";
+export { default as ScrollToTop } from "./others/ScrollToTop";
+export { default as ProductsGrid } from "./products/ProductsGrid";

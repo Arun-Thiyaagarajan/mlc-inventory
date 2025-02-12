@@ -1,5 +1,5 @@
 
-const EAntStatusMessage = {
+export const EAntStatusMessage = {
   SUCCESS: 'success',
   WARNING: 'warning',
   ERROR: 'error',
@@ -7,6 +7,16 @@ const EAntStatusMessage = {
   INFO: 'info',
 };
 
-export { 
-  EAntStatusMessage,
+export const EUserRoles = {
+  ADMIN: "admin",
+  EMPLOYEE: "employee",
+  USER: "user",
+  GUEST: "guest",
+};
+
+export const EProductsCategory = {
+  TILES: "tiles",
+  SANITARY_WARE: "sanitary-ware",
+  KITCHEN_FITTINGS: "kitchen-fittings",
+  BATH_FITTINGS: "bath-fittings",
 };
