@@ -1,5 +1,5 @@
 export { default as FormInput } from "./form-inputs/FormInput";
-export { default as SelectInput } from "./form-inputs/SelectInput";
+export { default as AntSelectInput } from "./form-inputs/AntSelectInput";
 export { default as SubmitBtn } from "./form-inputs/SubmitBtn";
 export { default as AntInput } from "./form-inputs/AntInput";
 export { default as AntNumInput } from "./form-inputs/AntNumInput";

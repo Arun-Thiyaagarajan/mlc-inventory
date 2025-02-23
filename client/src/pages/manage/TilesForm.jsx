@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AntInput, AntNumInput, SelectInput } from "../../components";
+import { AntInput, AntNumInput, AntSelectInput } from "../../components";
 import { tileBrandOptions, tileSizeOptions, tileTypesOptions } from "../../constants/products";
 import { ETileTypes } from "../../enums";
 import { IndianRupee } from "lucide-react";
@@ -34,7 +34,7 @@ const TilesForm = () => {
         placeholder='Eg. White, Dark,...'
       />
 
-      <SelectInput
+      <AntSelectInput
         showSearch={true}
         label="tile size"
         name='size'
@@ -44,7 +44,7 @@ const TilesForm = () => {
         selectedValue={tileSize}
       />
       
-      <SelectInput
+      <AntSelectInput
         showSearch={true}
         label="brand"
         name='brand'
@@ -54,7 +54,7 @@ const TilesForm = () => {
         selectedValue={tileBrand}
       />
       
-      <SelectInput
+      <AntSelectInput
         label="tile type"
         name='type'
         optionsArray={tileTypesOptions}

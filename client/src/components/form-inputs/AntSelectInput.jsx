@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 import { ChevronDown } from 'lucide-react';
 
-const SelectInput = ({ label, name, optionsArray, selectChange, selectedValue, defaultValue, placeholder, showSearch, sortable=true }) => {
+const AntSelectInput = ({ label, name, optionsArray, selectChange, selectedValue, defaultValue, placeholder, showSearch, sortable=true }) => {
   
   return (
     <div className="form-group w-full">
@@ -45,4 +45,4 @@ const SelectInput = ({ label, name, optionsArray, selectChange, selectedValue, d
   )
 };
 
-export default SelectInput;
+export default AntSelectInput;
