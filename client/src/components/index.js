@@ -1,6 +1,9 @@
 export { default as FormInput } from "./form-inputs/FormInput";
 export { default as SelectInput } from "./form-inputs/SelectInput";
 export { default as SubmitBtn } from "./form-inputs/SubmitBtn";
+export { default as AntInput } from "./form-inputs/AntInput";
+export { default as AntNumInput } from "./form-inputs/AntNumInput";
+export { default as AntUploadInput } from "./form-inputs/AntUploadInput";
 export { default as Navbar } from "./layouts/Navbar";
 export { default as Footer } from "./layouts/Footer";
 export { default as Search } from "./layouts/Search";

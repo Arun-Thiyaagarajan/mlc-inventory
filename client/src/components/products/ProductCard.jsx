@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Badge } from "antd";
-import { Heart, Pencil } from "lucide-react";
+import { Heart, IndianRupee, Pencil } from "lucide-react";
 import { EUserRoles } from "../../enums";
 
 const ProductCard = () => {
@@ -29,7 +29,9 @@ const ProductCard = () => {
           <div className="card-body space-y-1">
             <div className="flex items-start justify-between gap-5">
               <h2 className="card-title text-base">Silica</h2>
-              <div className="badge badge-success">$21</div>
+              <div className="badge badge-success">
+                <IndianRupee className="size-3" /> 210
+              </div>
             </div>
             <div className="card-actions">
               <div className="badge badge-error badge-outline">Somany</div>

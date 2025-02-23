@@ -20,3 +20,16 @@ export const EProductsCategory = {
   KITCHEN_FITTINGS: "kitchen-fittings",
   BATH_FITTINGS: "bath-fittings",
 };
+
+export const ETileTypes = {
+  WALL: "wall",
+  FLOOR: "floor",
+  PARKING: "parking",
+};
+
+export const EImageTypes = {
+  JPEG: "image/jpeg",
+  JPG: "image/jpg",
+  PNG: "image/png",
+  WEBP: "image/webp",
+};

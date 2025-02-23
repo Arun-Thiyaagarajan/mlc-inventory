@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { SelectInput, SubmitBtn } from "../../components";
+import { Form } from "react-router-dom";
+import { PackagePlus } from "lucide-react";
+import TilesForm from "./TilesForm";
+import { AntUploadInput, SelectInput, SubmitBtn } from "../../components";
 import { productCategoryOptions } from "../../constants";
 import { EProductsCategory } from "../../enums";
-import TilesForm from "./TilesForm";
+import { uploadService } from "../../api";
 
 const categoryComponents = {
   [EProductsCategory.TILES]: TilesForm,
@@ -13,30 +16,61 @@ const categoryComponents = {
 
 const AddProducts = () => {
   const [category, setCategory] = useState(EProductsCategory.TILES);
+  const [fileList, setFileList] = useState([]);
 
-  const selectChange = (value) => {
+  const onCategoryChange = (value) => {
     setCategory(value);
-    console.log(`Selected: ${value}`);
+    setFileList([]);
   };
-  
+
   const SelectedComponent = categoryComponents[category] || null;
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    const imageUrls = await uploadService.uploadImages(fileList, category);
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    data.images = imageUrls;
+    // Remove the 'file' property if it exists
+    delete data.file;
+
+    console.log("Submitted Data:", data);
+  };
+
   return (
-    <section className="w-full p-8 shadow-md rounded-xl flex flex-col gap-8">
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <SelectInput
-          label='category'
-          optionsArray={productCategoryOptions}
-          selectChange={selectChange}
-        />
+    <Form method="POST" onSubmit={handleSubmit} className="w-full p-5 md:p-8 shadow-md rounded-xl space-y-5 md:space-y-8">
+      <div className="grid xl:flex gap-3 md:gap-8">
+        <div className="flex flex-col xl:w-1/2 xl:max-w-96 gap-3 md:gap-8">
+          <SelectInput
+            label='category'
+            name='category'
+            sortable={false}
+            optionsArray={productCategoryOptions}
+            selectChange={onCategoryChange}
+            selectedValue={category}
+            defaultValue={category}
+            placeholder='Select the category'
+          />
+
+          <AntUploadInput
+            label={`Upload ${category.replace('-', ' ')} Images`}
+            name="images"
+            maxFiles={3}
+            uploadProps={{ multiple: true }}
+            fileList={fileList}
+            setFileList={setFileList}
+            productCategory={category}
+          />
+        </div>
+        {SelectedComponent && <SelectedComponent />}
       </div>
-      
-      {SelectedComponent && <SelectedComponent />}
-      
-      <div className="md:self-center">
-        <SubmitBtn text='submit' statusText='adding...' size="btn-block md:btn-wide" />
+
+      <div className="grid place-items-center">
+        <SubmitBtn text='add to stocks' icon={PackagePlus} statusText='adding...' size="btn-block md:btn-wide" />
       </div>
-    </section>
+    </Form>
   );
 };
 

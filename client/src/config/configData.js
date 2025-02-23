@@ -6,6 +6,7 @@ const AnimEmojis = {
   Wave: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b_1f3fc/512.webp",
   Rocket: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.webp",
   Eyes: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f440/512.webp",
+  Smile: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f603/512.webp",
 };
 
 export { 
