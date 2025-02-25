@@ -2,12 +2,10 @@ import { useState } from "react";
 import { Form } from "react-router-dom";
 import { PackagePlus } from "lucide-react";
 import TilesForm from "./TilesForm";
-import { AntMessageText, AntUploadInput, AntSelectInput, SubmitBtn } from "../../components";
+import { AntUploadInput, AntSelectInput, SubmitBtn, ToggleInput } from "../../components";
 import { productCategoryOptions } from "../../constants";
-import { EAntStatusMessage, EProductsCategory } from "../../enums";
+import { EProductsCategory } from "../../enums";
 import { uploadService } from "../../api";
-import { AnimEmojis } from "../../config/configData";
-import { showMessage } from "../../hooks";
 
 const categoryComponents = {
   [EProductsCategory.TILES]: TilesForm,
@@ -29,19 +27,19 @@ const AddProducts = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // showMessage(
-    //   EAntStatusMessage.LOADING,
-    //   AntMessageText({
-    //     statusText: `Updating Inventory...`,
-    //     emoji: AnimEmojis.Rocket,
-    //   })
-    // );
+
     const imageUrls = await uploadService.uploadImages(fileList, category);
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     data.images = imageUrls;
-    // Remove the 'file' property if it exists
+    // Ensure 'featured' is explicitly set (default to false if missing)
+    data.featured = formData.has("featured");
+    ["sqftRate", "noOfBoxes", "pcsPerBox", "boxRate"].forEach((key) => {
+      if (data[key] !== undefined) {
+        data[key] = Number(data[key]);
+      }
+    });
     delete data.file;
 
     console.log("Submitted Data:", data);
@@ -70,6 +68,12 @@ const AddProducts = () => {
             fileList={fileList}
             setFileList={setFileList}
             productCategory={category}
+          />
+
+          <ToggleInput
+            label='Featured'
+            name='featured'
+            defaultChecked={false}
           />
         </div>
         {SelectedComponent && <SelectedComponent />}

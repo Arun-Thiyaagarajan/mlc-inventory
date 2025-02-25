@@ -1,4 +1,5 @@
 export { default as FormInput } from "./form-inputs/FormInput";
+export { default as ToggleInput } from "./form-inputs/ToggleInput";
 export { default as AntSelectInput } from "./form-inputs/AntSelectInput";
 export { default as SubmitBtn } from "./form-inputs/SubmitBtn";
 export { default as AntInput } from "./form-inputs/AntInput";
