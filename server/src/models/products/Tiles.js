@@ -22,6 +22,10 @@ const TilesSchema = Schema(
     images: {
       type: [String],
       required: true,
+      validate: {
+        validator: (value) => Array.isArray(value) && value.length > 0,
+        message: "At least one image is required.",
+      },
     },
     type: {
       type: String,
@@ -46,6 +50,10 @@ const TilesSchema = Schema(
     boxRate: {
       type: Number,
       required: true,
+    },
+    featured: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

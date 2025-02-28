@@ -1,7 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
 import { ProductsGrid, Search, SectionTitle } from "../../components";
+import { useEffect } from "react";
+import { fetchAllTiles } from "../../store/slices/products/tilesThunk";
 
 
 const Inventory = () => {
+  const dispatch = useDispatch();
+  const { tilesData, loading, error } = useSelector((state) => state.inventory);
+  console.log(tilesData)
+  // Fetch all tiles on component mount
+  useEffect(() => {
+    dispatch(fetchAllTiles());
+  }, [dispatch]);
+
   const handleSelect = (value) => {
     console.log('Selected:', value);
   };

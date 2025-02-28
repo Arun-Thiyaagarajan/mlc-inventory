@@ -1,9 +1,12 @@
-import { getAllTiles } from "../controllers/tilesController.js";
+import { createTiles, getAllTiles } from "../controllers/tilesController.js";
 import { Router } from "express";
 
 
 const router = Router();
 
-router.route('/').get(getAllTiles);
+router
+  .route('/')
+  .post(createTiles)
+  .get(getAllTiles);
 
 export default router;

@@ -6,11 +6,11 @@ import { IndianRupee } from "lucide-react";
 
 const TilesForm = () => {
 
-    const [design, setDesign] = useState('');
-    const [color, setColor] = useState('');
+    const [design, setDesign] = useState('Pupa');
+    const [color, setColor] = useState('Dark');
     const [tileType, setTileType] = useState(ETileTypes.WALL);
-    const [tileSize, setTileSize] = useState('');
-    const [tileBrand, setTileBrand] = useState('');
+    const [tileSize, setTileSize] = useState('200x200');
+    const [tileBrand, setTileBrand] = useState('kag');
     const [sqftRate, setSqftRate] = useState(0);
     const [noOfBoxes, setNoOfBoxes] = useState(0);
     const [pcsPerBox, setPcsPerBox] = useState(0);
@@ -37,6 +37,7 @@ const TilesForm = () => {
       <AntSelectInput
         showSearch={true}
         label="tile size"
+        defaultValue='200x200'
         name='size'
         placeholder='Search the size'
         optionsArray={tileSizeOptions}
@@ -48,6 +49,7 @@ const TilesForm = () => {
         showSearch={true}
         label="brand"
         name='brand'
+        defaultValue='kag'
         placeholder='Choose the brand'
         optionsArray={tileBrandOptions}
         selectChange={(value) => setTileBrand(value)}
