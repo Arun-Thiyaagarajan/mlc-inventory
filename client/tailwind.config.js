@@ -1,5 +1,3 @@
-import daisyui from "daisyui";
-import typography from "@tailwindcss/typography";
 import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
@@ -12,8 +10,4 @@ export default {
       },
     },
   },
-  daisyui: {
-    themes: ["winter", "dracula", "cupcake", "business"],
-  },
-  plugins: [typography, daisyui],
 };
