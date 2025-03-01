@@ -7,7 +7,7 @@ import Token from "../models/Token.js";
 
 const register = async (req, res) => {
   const { fullName, email, password } = req.body;
-  console.log(req.body);
+
   const userAlreadyExist = await User.findOne({ email });
   if (userAlreadyExist) {
     throw new BadRequestError("User already exists");
