@@ -75,7 +75,7 @@ const AddProducts = () => {
   };
 
   return (
-    <Form method="POST" onSubmit={handleSubmit} className="w-full p-5 md:p-8 shadow-md rounded-xl space-y-5 md:space-y-8">
+    <Form method="POST" onSubmit={handleSubmit} className="w-full min-h-[83vh] p-5 md:p-8 shadow-md rounded-xl space-y-5 md:space-y-8">
       <div className="grid xl:flex gap-3 md:gap-8">
         <div className="grid md:grid-cols-3 xl:grid-cols-1 xl:w-1/2 xl:max-w-96 gap-3 md:gap-8">
           <div className="md:space-y-8">

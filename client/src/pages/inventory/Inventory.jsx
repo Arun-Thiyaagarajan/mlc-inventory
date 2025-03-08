@@ -7,7 +7,6 @@ import { fetchAllTiles } from "../../store/slices/products/tilesThunk";
 const Inventory = () => {
   const dispatch = useDispatch();
   const { tilesData, loading, error } = useSelector((state) => state.inventory);
-  console.log(tilesData)
   // Fetch all tiles on component mount
   useEffect(() => {
     dispatch(fetchAllTiles());

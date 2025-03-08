@@ -8,6 +8,7 @@ export { default as AntUploadInput } from "./form-inputs/AntUploadInput";
 export { default as Navbar } from "./layouts/Navbar";
 export { default as Footer } from "./layouts/Footer";
 export { default as Search } from "./layouts/Search";
+export { default as DaisyTable } from "./layouts/DaisyTable";
 export { default as VerifiedCheckbox } from "./others/VerifiedCheckbox";
 export { default as AntMessageText } from "./others/StatusMessage";
 export { default as SectionTitle } from "./others/SectionTitle";

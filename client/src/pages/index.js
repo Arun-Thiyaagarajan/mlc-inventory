@@ -7,6 +7,7 @@ import ResetPassword from "./auth/ResetPassword";
 import Landing from "./home/Landing";
 import Inventory from "./inventory/Inventory";
 import AddProducts from "./manage/AddProducts";
+import AllProducts from "./manage/AllProducts";
 
 export {
   MainLayout,
@@ -18,4 +19,5 @@ export {
   Landing,
   Inventory,
   AddProducts,
+  AllProducts,
 };

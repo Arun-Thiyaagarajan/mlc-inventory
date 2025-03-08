@@ -6,9 +6,7 @@ export const navLinks = [
   { id: nanoid(), label: "Home", icon: Home, path: "/", adminOnly: false },
   { id: nanoid(), label: "Inventory", icon: Store, path: "inventory", adminOnly: false },
   { id: nanoid(), label: "Add Products", icon: SquarePlus, path: "add-products", adminOnly: true },
-  // { id: nanoid(), label: "Categories", icon: Store, path: "categories" },
-  // { id: uuidv4(), label: "Services", path: "/services" },
-  // { id: uuidv4(), label: "Contact", path: "/contact" },
+  { id: nanoid(), label: "All Products", icon: SquarePlus, path: "all-products", adminOnly: true },
 ];
 
 export const profileLinks = [
